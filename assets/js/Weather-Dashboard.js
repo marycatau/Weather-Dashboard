@@ -8,6 +8,7 @@ function Init (){
     //hide the error code
     $('#errorcode').hide();
     $('#weatherdetails').hide();
+    $('#SearchBar').attr("Class", "col-12 col-md-12 container")
     displaypastrecod();
 }
 
@@ -33,7 +34,7 @@ function displaypastrecod(){
         (liE1).append(buttonE1);
         buttonE1.textContent=CityRecord[i];
 
-        //replace space by underscore in id name 
+        //replace space by underscore in html id-attribute
         var citynameE2= CityRecord[i].replace(/\s/g, "_");
         console.debug(citynameE2);
         
@@ -57,15 +58,13 @@ function searchcity(){
         return;
     }
 
-    //check if any space in the input and set string to lowercase
+    //trim the string and set string to Uppercase
     citynameE1=citynameE1.trim();
     console.debug(citynameE1);
-   // citynameE1= citynameE1.replace(/\s/g, "_");
-   // console.debug(citynameE1);
-    citynameE1=citynameE1.toLowerCase();
+    citynameE1=citynameE1.toUpperCase();
     console.debug(citynameE1);
 
-
+    //clear the input field
     $('#CityInput').val('');
     Checklatlon(citynameE1);
 }
@@ -123,7 +122,7 @@ function CheckCityDetail(data,citynameE1){
     (liE1).append(buttonE1);
     buttonE1.textContent=citynameE1;
     
-    //replace space by underscore in id name 
+    //replace space by underscore in html id-attribute
     var citynameE2= citynameE1.replace(/\s/g, "_");
     console.debug(citynameE2);
 
@@ -133,7 +132,7 @@ function CheckCityDetail(data,citynameE1){
     }
 
 
-    //display cityname and past button
+    //display cityname
     $('#cityname').text(citynameE1);
 
     //get the lat and lon of the city
@@ -172,57 +171,75 @@ function CheckCityDetail(data,citynameE1){
 
 
 function Displayweather(data){
-$('#weatherdetails').show();
+    //display the weather detail section
+    $('#SearchBar').attr("Class", "col-12 col-md-3 container");
+    $('#weatherdetails').show();
 
-//display the current weather
-var todayE1=data.current.dt;
-console.debug(todayE1);
-console.debug(moment.unix(todayE1).format());
+    //display the current weather
+    var todayE1=data.current.dt;
+    console.debug(todayE1);
+    console.debug(moment.unix(todayE1).format());
 
-var todaytemp = data.current.temp-273;
-console.debug(todaytemp);
+    var todaytemp = Math.round(data.current.temp-273);
+    console.debug(todaytemp);
 
-var todayweather = data.current.weather[0].icon;
-console.debug(todayweather);
-var todaywind= data.current.wind_speed;
-console.debug(todaywind);
-var todayHumid=data.current.humidity;
-console.debug(todayHumid);
-var todayuvi=data.current.uvi;
-console.debug(todayuvi);
+    var todayweather = data.current.weather[0].icon;
+    console.debug(todayweather);
+    var todaywind= data.current.wind_speed;
+    console.debug(todaywind);
+    var todayHumid=data.current.humidity;
+    console.debug(todayHumid);
+    var todayuvi=data.current.uvi;
+    console.debug(todayuvi);
 
-//input the today's weather details
-$('#TodayDate').text(moment.unix(todayE1).format("YYYY/MM/DD"));
-$('#Todayweather').html('<img src="http://openweathermap.org/img/wn/'+todayweather+'@2x.png">');
-$('#Todaytemp').text(todaytemp);
-$('#TodayWind').text(todaywind);
-$('#TodayHumid').text(todayHumid);
-$('#TodayUV').text(todayuvi);
-
-
-//uv css
-if(todayuvi < 3){
-    $('#TodayUV').attr("class","bg-success text-white p-1");
-} else if (todayuvi<6){
-    $('#TodayUV').attr("class","bg-primary text-white p-1");
-}  else {
-    $('#TodayUV').attr("class","bg-danger text-white p-1");
-}
+    //display the today's weather details
+    $('#TodayDate').text(moment.unix(todayE1).format("YYYY/MM/DD"));
+    $('#Todayweather').html('<img src="http://openweathermap.org/img/wn/'+todayweather+'@2x.png">');
+    $('#Todaytemp').text(todaytemp);
+    $('#TodayWind').text(todaywind);
+    $('#TodayHumid').text(todayHumid);
+    $('#TodayUV').text(todayuvi);
 
 
-//assign 5 day forecast weather value
-for (i=1; i<6;i++){
-    $('#'+i+'date').text(moment.unix(data.daily[i].dt).format("YYYY/MM/DD"));
-    $('#'+i+'weather').html('<img src="http://openweathermap.org/img/wn/'+data.daily[i].weather[0].icon+'@2x.png">');
-    $('#'+i+'temp').text(data.daily[i].temp.day-273);
-    $('#'+i+'Wind').text(data.daily[i].wind_speed);
-    $('#'+i+'Humid').text(data.daily[i].humidity);
-}
+    //change uvi color css
+    if(todayuvi < 3){
+        $('#TodayUV').attr("class","bg-success text-white p-1 rounded"); //No protection needed
+    } else if (todayuvi<8){
+        $('#TodayUV').attr("class","bg-primary text-white p-1 rounded");//Need protection
+    }  else {
+        $('#TodayUV').attr("class","bg-danger text-white p-1 rounded"); //extra protection required
+    }
+
+
+    //assign 5 day forecast weather value
+    console.debug(moment.unix(todayE1).format("YYYY/MM/DD"));
+    console.debug(moment.unix(data.daily[1].dt).format("YYYY/MM/DD"));
+    if (moment.unix(todayE1).format("YYYY/MM/DD") !== moment.unix(data.daily[1].dt).format("YYYY/MM/DD") ) {
+        for (i=1; i<6;i++){
+            $('#'+i+'date').text(moment.unix(data.daily[i].dt).format("YYYY/MM/DD"));
+            $('#'+i+'weather').html('<img src="http://openweathermap.org/img/wn/'+data.daily[i].weather[0].icon+'@2x.png">');
+            $('#'+i+'temp').text(Math.round(data.daily[i].temp.day-273));
+            $('#'+i+'Wind').text(data.daily[i].wind_speed);
+            $('#'+i+'Humid').text(data.daily[i].humidity);
+        }   
+    } else {
+        for (i=1; i<6;i++){
+            $('#'+i+'date').text(moment.unix(data.daily[i+1].dt).format("YYYY/MM/DD"));
+            $('#'+i+'weather').html('<img src="http://openweathermap.org/img/wn/'+data.daily[i+1].weather[0].icon+'@2x.png">');
+            $('#'+i+'temp').text(Math.round(data.daily[i+1].temp.day-273));
+            $('#'+i+'Wind').text(data.daily[i+1].wind_speed);
+            $('#'+i+'Humid').text(data.daily[i+1].humidity);
+        }  
+
+
+
+    }
  
-for (i=0; i<CityRecord.length; i++) {
-    var City=CityRecord[i].replace(/\s/g, "_");
-    $('#'+City).click(pastcity);
-}   
+    //assign the serach button onclick function
+    for (i=0; i<CityRecord.length; i++) {
+        var City=CityRecord[i].replace(/\s/g, "_");
+        $('#'+City).click(pastcity);
+    }   
 
 }
 
