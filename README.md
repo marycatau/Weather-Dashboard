@@ -9,7 +9,7 @@ This Dashboard used the OpenWeather One Call API to retrieve weather data for ci
 
 * Screenshot of deployed Application
 
-![ScreenShot of the deployed application](https://github.com/marycatau/Work-Day-Scheduler/blob/main/assets/image/Screenshot%20of%20deployed%20application.jpeg?raw=true)
+![ScreenShot of the deployed application](https://github.com/marycatau/Weather-Dashboard/blob/main/assets/image/Screenshot%20of%20the%20deployed%20Application.jpeg?raw=true)
 
 
 * Link to deployed application
