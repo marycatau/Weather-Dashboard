@@ -2,10 +2,13 @@
 
 * Description
 
-The Challenge of the Coding boot camp of University of Birmingham this week is to build a weather dashboard that run in the browser with feature dynamically updated HTML and CSS.
+  The Challenge of the Coding boot camp of University of Birmingham this week is to build a weather dashboard that run in the browser with feature dynamically updated HTML and CSS.
 
-This Dashboard used the OpenWeather One Call API to retrieve weather data for cities and the localStorage to record searched city name.
+  This Dashboard used the OpenWeather One Call API to retrieve weather data for cities and the localStorage to record searched city name.
 
+  The code was then checked at the following website for the web accessiblity and the markup
+  * https://wave.webaim.org/
+  * https://validator.w3.org/
 
 * Screenshot of deployed Application
 
