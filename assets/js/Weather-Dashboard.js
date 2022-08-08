@@ -74,7 +74,7 @@ function Checklatlon(citynameE1){
   
     $('#errorcode').hide();
     //fetch the API call
-    var CityQueryURL= "http://api.openweathermap.org/geo/1.0/direct?q="+citynameE1+"&limit=1&appid=14a0fd0022ec9befd3220d486e585dbe";
+    var CityQueryURL= "https://api.openweathermap.org/geo/1.0/direct?q="+citynameE1+"&limit=1&appid=14a0fd0022ec9befd3220d486e585dbe";
     
     //http://api.openweathermap.org/geo/1.0/direct?q=hong kong&limit=1&appid=14a0fd0022ec9befd3220d486e585dbe
 
@@ -194,7 +194,7 @@ function Displayweather(data){
 
     //display the today's weather details
     $('#TodayDate').text(moment.unix(todayE1).format("YYYY/MM/DD"));
-    $('#Todayweather').html('<img src="http://openweathermap.org/img/wn/'+todayweather+'@2x.png">');
+    $('#Todayweather').html('<img src="https://openweathermap.org/img/wn/'+todayweather+'@2x.png">');
     $('#Todaytemp').text(todaytemp);
     $('#TodayWind').text(todaywind);
     $('#TodayHumid').text(todayHumid);
@@ -217,7 +217,7 @@ function Displayweather(data){
     if (moment.unix(todayE1).format("YYYY/MM/DD") !== moment.unix(data.daily[1].dt).format("YYYY/MM/DD") ) {
         for (i=1; i<6;i++){
             $('#'+i+'date').text(moment.unix(data.daily[i].dt).format("YYYY/MM/DD"));
-            $('#'+i+'weather').html('<img src="http://openweathermap.org/img/wn/'+data.daily[i].weather[0].icon+'@2x.png">');
+            $('#'+i+'weather').html('<img src="https://openweathermap.org/img/wn/'+data.daily[i].weather[0].icon+'@2x.png">');
             $('#'+i+'temp').text(Math.round(data.daily[i].temp.day-273));
             $('#'+i+'Wind').text(data.daily[i].wind_speed);
             $('#'+i+'Humid').text(data.daily[i].humidity);
@@ -225,7 +225,7 @@ function Displayweather(data){
     } else {
         for (i=1; i<6;i++){
             $('#'+i+'date').text(moment.unix(data.daily[i+1].dt).format("YYYY/MM/DD"));
-            $('#'+i+'weather').html('<img src="http://openweathermap.org/img/wn/'+data.daily[i+1].weather[0].icon+'@2x.png">');
+            $('#'+i+'weather').html('<img src="https://openweathermap.org/img/wn/'+data.daily[i+1].weather[0].icon+'@2x.png">');
             $('#'+i+'temp').text(Math.round(data.daily[i+1].temp.day-273));
             $('#'+i+'Wind').text(data.daily[i+1].wind_speed);
             $('#'+i+'Humid').text(data.daily[i+1].humidity);
