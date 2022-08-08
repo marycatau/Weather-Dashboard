@@ -8,6 +8,7 @@
 
   The code was then checked at the following website for the web accessiblity and the markup
   * https://wave.webaim.org/
+  
   * https://validator.w3.org/
 
 * Screenshot of deployed Application
