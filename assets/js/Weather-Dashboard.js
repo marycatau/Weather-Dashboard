@@ -94,12 +94,19 @@ function Checklatlon(citynameE1){
     })
     .then(function (data) {
       console.log(data);
+      if(data.length === 0 ){
+        $('#errorcode').show();
+
+      }else{
+
+      citynameE1=data[0].name;
       CheckCityDetail(data,citynameE1);
+      }
     })
     .catch(function (error) {
       console.error(error);
       $('#errorcode').show();
-
+        
     });
     }
 
